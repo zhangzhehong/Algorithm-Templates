@@ -1,0 +1,43 @@
+//计算三角形的周长、面积、外心、重心
+//date：2018-4-19
+
+//周长
+void C_Triangle(double x1,double x2,double x3,double y1,double y2,double y3)
+{
+	double sum=0;
+	sum+=sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+	sum+=sqrt( (x1-x3)*(x1-x3) + (y1-y3)*(y1-y3) );
+	sum+=sqrt( (x2-x3)*(x2-x3) + (y2-y3)*(y2-y3) );
+	printf("%.2f\n",sum);
+}
+
+//面积 利用海伦公式
+void S_Triangle(double x1,double x2,double x3,double y1,double y2,double y3)
+{
+	double a=0,b=0,c=0,p=0;
+	a = sqrt( (x1-x2)*(x1-x2) + (y1-y2)*(y1-y2) );
+	b = sqrt( (x1-x3)*(x1-x3) + (y1-y3)*(y1-y3) );
+	c = sqrt( (x2-x3)*(x2-x3) + (y2-y3)*(y2-y3) );
+	p = (a+b+c)/2;
+	printf("%.2f\n",sqrt(p*(p-a)*(p-b)*(p-c)));
+}
+
+//外心 整体式子很长，简化计算
+void Circumcenter(double x1,double x2,double x3,double y1,double y2,double y3)
+{
+	double A1 = 2*(x2-x1);
+	double B1 = 2*(y2-y1);
+	double C1 = x2*x2 + y2*y2 - x1*x1 - y1*y1;
+	double A2 = 2*(x3-x2);
+	double B2 = 2*(y3-y2);
+	double C2 = x3*x3 + y3*y3 - x2*x2 - y2*y2;
+	double x = ( B2*C1-B1*C2 )/ ( B2*A1-B1*A2 );
+	double y = ( -1*A2*C1+A1*C2 )/( B2*A1-B1*A2 );
+	printf("%.2f %.2f\n",x,y);
+}
+
+//重心
+void Gravity(double x1,double x2,double x3,double y1,double y2,double y3)
+{
+	printf("%.2f %.2f\n",(x1+x2+x3)/3,(y1+y2+y3)/3);
+}
