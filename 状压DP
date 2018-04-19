@@ -1,0 +1,48 @@
+//蓝桥杯-算法提高-ADV-151
+//状压DP
+//date：2018-4-19
+
+#include <cstdio>  
+#include <cmath>  
+#include <algorithm>  
+#include <cstring>   
+#include <string>  
+#include <iostream>   
+using namespace std;  
+
+const int maxn = 13 + 5;  
+int like[maxn][maxn], dp[maxn][1<<13];  
+int n, ans;  
+
+int dfs(int row, int val, int k) 
+{ //row表示行，k表示当前未选择的列   
+    if(dp[row][val] != -1) return dp[row][val];  
+    int &d = dp[row][val];  
+    if(k == 1) 
+	{ //边界   
+        for(int i = 0; i < n; ++i) 
+		{  
+            int x = 1 << i;  
+            if(x & val) return d = like[row][i];  
+        }  
+    }  
+    for(int i = 0; i < n; ++i) 
+	{  
+        int x = 1 << i;  
+        if(x & val) d = max(d, like[row][i] + dfs(row+1, val - x, k-1));  
+    }  
+    return d;  
+}  
+int main() 
+{  
+    while(scanf("%d", &n) == 1) 
+	{  
+        for(int i = 0; i < n; ++i)   
+            for(int j = 0; j < n; ++j) 
+                scanf("%d", &like[i][j]);    
+        memset(dp, -1, sizeof(dp));  
+        int start = (1<<n)-1;  
+        printf("%d\n", dfs(0, start, n));  
+    }  
+    return 0;  
+}  
