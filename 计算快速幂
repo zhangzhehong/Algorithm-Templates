@@ -1,0 +1,15 @@
+//计算m^n % k   快速幂模板
+//date:2018-4-19
+
+long long int quickpow(long long int m,long long int n)
+{
+    long long int b = 1;
+    while (n > 0)
+    {
+          if (n & 1)
+             b = ( b*m ) % mod;
+          n >>= 1 ;
+          m = (m*m)%mod;
+    }
+    return b;
+}
