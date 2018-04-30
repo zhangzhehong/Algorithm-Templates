@@ -1,0 +1,39 @@
+//date：2018-4-30
+//并查集的模板
+
+No.1
+普通并查集，直接返回节点的父节点，但不是唯一的祖先节点
+
+int find(int x)
+{
+	if(father[x] == x)
+		return x;
+	return father[x] = find(father[x]);
+}
+
+void Union(int a,int b)
+{
+	int fa = find(a);
+	int fb = find(b);
+	if(fa != fb)
+	{
+		father[fb]=fa;
+	}
+}
+
+
+No.2
+中层并查集，返回每个并查集中唯一的祖先节点
+int find(int p)
+{  
+    int root=p;  
+    while(pre[root]!=root)  
+        root=pre[root];  
+    int temp;  
+    while(pre[p]!=p){    // 尽可能简便地缩短树的高度  
+        temp=pre[p];  
+        pre[p]=root;  
+        p=temp;  
+    }  
+    return root;  
+} 
