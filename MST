@@ -1,0 +1,62 @@
+#include<iostream>
+#include<vector>
+#include<algorithm>
+#include<cmath>
+#include<cstdio>
+#include<string>
+using namespace std;
+
+typedef long long ll;
+const int N=1e5+10; 
+
+//定义存储边的结构体
+struct node
+{
+    int from,to,dis;
+    //重载比较函数
+    bool operator < (const node &a) const
+        return c<a.c;
+}edge[N];
+
+//定义存储节点并查集父节点
+int f[N];
+
+//查找当前节点的并查集父节点
+int find(int x)
+{
+    if(f[x]!=x)
+        return find(f[x]);
+    else
+        return x;
+}
+
+//bool cmp(const node&a,const node &b)
+//{
+//    return a.dis < b.dis;
+//}
+int main()
+{
+    int n,m,r,cnt,k=0,f1,f2;
+    int i=0;
+    scanf("%d%d%d",&n,&m,&r);
+    for(i=1;i<=n;i++)
+        f[i]=i;
+    for(i=1;i<=m;i++)
+        scanf("%d%d%d",&edge[i].from,&edge[i].to,&edge[i].dis);
+    sort(edge+1,edge+m+1);
+    for(i=1;i<=m;i++)
+    {
+        f1 = find(edge[i].from);
+        f2 = find(edge[i].to);
+        if(f1!=f2)
+        {
+            f[f1]=f2;
+            cnt += edge[i].dis;
+            k++;
+        }
+        if(k==n-1)
+            break;
+    }
+    printf("%d\n",cnt);
+    return 0;
+}
